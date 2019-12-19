@@ -103,82 +103,88 @@ const CreateScreen = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.formContainer}>
-            <TextInput
-                style={styles.textInputStype}
-                onChangeText={text => dispatch({ type: 'setTitle', value: text })}
-                placeholder="Enter task title..."
-                value={state.title}
-            />
-            <View
-                style={{
-                    borderWidth: 1,
-                    borderColor: 'gray',
-                    padding: 3,
-                    marginTop: 5,
-                }}
-            >
+        <View style={{ flex: 1, flexDirection: 'column', padding: 5 }}>
+            <View style={{ margin: 3 }}>
+                <TextInput
+                    style={{ borderWidth: 2, height: 50, paddingLeft: 5 }}
+                    onChangeText={text => dispatch({ type: 'setTitle', value: text })}
+                    placeholder="Enter task title..."
+                    value={state.title}
+                />
+            </View>
+            <View>
                 <TouchableOpacity onPress={() => dispatch({ type: 'showDatePicker', value: true })}>
-                    <FontAwesome name="calendar" size={30} />
-                    <Text>
-                        {moment(state.date).format('MMMM Do YYYY')}, {moment(state.time).format('h:mm:ss a')}{' '}
-                    </Text>
+                    <View
+                        style={{
+                            margin: 3,
+                            flexDirection: 'row',
+                            borderWidth: 2,
+                            padding: 5,
+                            height: 50,
+                            alignItems: 'center',
+                        }}
+                    >
+                        <View>
+                            <FontAwesome name="calendar" size={30} />
+                        </View>
+                        <View style={{ paddingLeft: 5 }}>
+                            <Text>
+                                {moment(state.date).format('MMMM Do YYYY')}, {moment(state.time).format('h:mm:ss a')}
+                            </Text>
+                        </View>
+                    </View>
                 </TouchableOpacity>
             </View>
-            {state.show_date_picker && state.date_picker_type === 'date' && (
-                <DateTimePicker
-                    value={state.date}
-                    mode={state.date_picker_type}
-                    display="default"
-                    onChange={(e, value) => {
-                        dispatch({ type: 'setDate', value });
-                    }}
-                />
-            )}
-            {state.show_date_picker && state.date_picker_type === 'time' && (
-                <DateTimePicker
-                    value={state.time}
-                    mode={state.date_picker_type}
-                    display="default"
-                    onChange={(e, value) => {
-                        dispatch({ type: 'setTime', value });
-                    }}
-                />
-            )}
-            <TouchableOpacity
-                style={{ borderWidth: 3, color: 'red', backgroundColor: 'blue' }}
-                onPress={() => {
-                    updateData({
-                        title: state.title,
-                        date: state.date,
-                        time: state.time,
-                        status: 0,
-                    });
+            <View
+                style={{
+                    padding: 5,
+                    margin: 5,
+                    backgroundColor: '#19EA72',
+                    height: 50,
                 }}
             >
-                <Text>Update</Text>
-            </TouchableOpacity>
-            <Text>{state.error}</Text>
-            <Text>{state.loading ? 'Please wait..' : ''}</Text>
+                <TouchableOpacity
+                    style={{ alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}
+                    onPress={() => {
+                        updateData({
+                            title: state.title,
+                            date: state.date,
+                            time: state.time,
+                            status: 0,
+                        });
+                    }}
+                >
+                    <Text style={{ color: '#fff' }}>Update</Text>
+                </TouchableOpacity>
+                {state.show_date_picker && state.date_picker_type === 'date' && (
+                    <DateTimePicker
+                        value={state.date}
+                        mode={state.date_picker_type}
+                        display="default"
+                        onChange={(e, value) => {
+                            dispatch({ type: 'setDate', value });
+                        }}
+                    />
+                )}
+                {state.show_date_picker && state.date_picker_type === 'time' && (
+                    <DateTimePicker
+                        value={state.time}
+                        mode={state.date_picker_type}
+                        display="default"
+                        onChange={(e, value) => {
+                            dispatch({ type: 'setTime', value });
+                        }}
+                    />
+                )}
+            </View>
+            <View>
+                <Text>{state.error}</Text>
+                <Text>{state.loading ? 'Please wait..' : ''}</Text>
+            </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create({
-    formContainer: {
-        padding: 5,
-    },
-    textInputStype: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-    },
-    dateBtn: {
-        padding: 5,
-        borderWidth: 1,
-        backgroundColor: 'blue',
-        color: 'white',
-    },
-});
+const styles = StyleSheet.create({});
 
 export default CreateScreen;

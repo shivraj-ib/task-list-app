@@ -21,33 +21,35 @@ const HomeScreen = ({ navigation }) => {
     });
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigation.navigate('Create')}>
-                <Text style={styles.createBtn}>Create New task</Text>
-            </TouchableOpacity>
-            {todoList.length > 0 && (
-                <FlatList
-                    data={todoList}
-                    renderItem={({ item }) => <TaskItem taskDetails={item} onUpdateHook={getTaskData} />}
-                    keyExtractor={item => item.key}
-                />
-            )}
+        <View style={{ flex: 1, flexDirection: 'column', padding: 5 }}>
+            <View
+                style={{
+                    padding: 5,
+                    margin: 5,
+                    backgroundColor: '#19EA72',
+                    height: 50,
+                }}
+            >
+                <TouchableOpacity
+                    style={{ alignItems: 'center', justifyContent: 'center', flexGrow: 1 }}
+                    onPress={() => navigation.navigate('Create')}
+                >
+                    <Text style={{ color: '#fff' }}>Create New task</Text>
+                </TouchableOpacity>
+            </View>
+            <View>
+                {todoList.length > 0 && (
+                    <FlatList
+                        data={todoList}
+                        renderItem={({ item }) => <TaskItem taskDetails={item} onUpdateHook={getTaskData} />}
+                        keyExtractor={item => item.key}
+                    />
+                )}
+            </View>
         </View>
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-    },
-    createBtn: {
-        padding: 5,
-        borderWidth: 1,
-        backgroundColor: 'blue',
-        color: 'white',
-    },
-});
+const styles = StyleSheet.create({});
 
 export default HomeScreen;

@@ -23,25 +23,33 @@ const TaskItem = ({ taskDetails, onUpdateHook, navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text>{taskDetails.title} </Text>
-            <Text>
-                {moment(taskDetails.date).format('MMMM Do YYYY')}, {moment(taskDetails.time).format('h:mm:ss a')}{' '}
-            </Text>
-            <TouchableOpacity
-                onPress={() => {
-                    navigation.navigate('Edit', { task_details: taskDetails });
-                }}
-            >
-                <FontAwesome name="edit" size={25} />
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => {
-                    deleteData(taskDetails.key);
-                }}
-            >
-                <FontAwesome name="close" size={25} />
-            </TouchableOpacity>
+        <View style={{ flex: 1, flexDirection: 'row', margin: 5, padding: 5, borderWidth: 1 }}>
+            <View style={{ flexGrow: 7 }}>
+                <Text>{taskDetails.title} </Text>
+                <Text>
+                    {moment(taskDetails.date).format('MMMM Do YYYY')}, {moment(taskDetails.time).format('h:mm:ss a')}{' '}
+                </Text>
+            </View>
+            <View style={{ flexGrow: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                <View>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Edit', { task_details: taskDetails });
+                        }}
+                    >
+                        <FontAwesome name="edit" size={25} />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ marginLeft: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            deleteData(taskDetails.key);
+                        }}
+                    >
+                        <FontAwesome name="close" size={25} />
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
     );
 };
